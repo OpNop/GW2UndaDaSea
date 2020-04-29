@@ -56,16 +56,16 @@ namespace UndaDaSea
                         {
                             //Adjust volume acording to elevation
                             double volume = 0;
-                            double Zloc = m.AvatarPosition.Y;
+                            double Yloc = m.AvatarPosition.Y;
                             //double maxVol = MaxVolume.Value;
-                            if (Zloc <= 0)
+                            if (Yloc <= 0)
                             {
-                                volume = map(Zloc, -30, 0, MaxVolume.Value, 0.05f);
+                                volume = map(Yloc, -30, 0, MaxVolume.Value, 0.05f);
                                 //wplayer.settings.volume = volume;
                             }
                             else
                             {
-                                volume = map(Zloc, 0, 3, 0.05f, 0f);
+                                volume = map(Yloc, 0, 3, 0.05f, 0f);
                                 //wplayer.settings.volume = Math.Max(0, volume);
                             }
 
