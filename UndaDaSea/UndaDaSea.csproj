@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\background.jpg" />
+    <None Remove="background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GW2Sharp" Version="0.9.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="uts_loop2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
