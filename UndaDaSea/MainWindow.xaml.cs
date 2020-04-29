@@ -60,12 +60,12 @@ namespace UndaDaSea
                             //double maxVol = MaxVolume.Value;
                             if (Zloc <= 0)
                             {
-                                volume = map(Zloc, -20, 0, MaxVolume.Value, 0.05f);
+                                volume = map(Zloc, -30, 0, MaxVolume.Value, 0.05f);
                                 //wplayer.settings.volume = volume;
                             }
                             else
                             {
-                                volume = map(Zloc, 0, 5, 0.05f, 0f);
+                                volume = map(Zloc, 0, 3, 0.05f, 0f);
                                 //wplayer.settings.volume = Math.Max(0, volume);
                             }
 
