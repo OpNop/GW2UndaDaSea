@@ -72,6 +72,9 @@ namespace UndaDaSea
                             underTheSea.Volume = volume;
                             volumeSlider.Value = volume;
 
+#if DEBUG
+                            DepthLabel.Content = $"Depth ({underTheSea.Volume})";
+#endif
                         }), this.client.Mumble);
                     }
                     catch (ObjectDisposedException)

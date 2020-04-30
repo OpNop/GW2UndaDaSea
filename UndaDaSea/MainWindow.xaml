@@ -25,6 +25,7 @@
             Volume="0" />
         <StackPanel>
             <Label
+                Name="DepthLabel"
                 Content="Depth"
                 FontSize="20"
                 FontWeight="Bold"
