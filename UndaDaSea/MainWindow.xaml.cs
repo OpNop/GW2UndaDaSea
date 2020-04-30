@@ -57,21 +57,17 @@ namespace UndaDaSea
                             //Adjust volume acording to elevation
                             double volume = 0;
                             double Yloc = m.AvatarPosition.Y;
-                            //double maxVol = MaxVolume.Value;
                             if (Yloc <= 0)
                             {
                                 volume = map(Yloc, -30, 0, MaxVolume.Value, 0.01f);
-                                //wplayer.settings.volume = volume;
                             }
                             else
                             {
                                 volume = map(Yloc, 0, 3, 0.01f, 0f);
-                                //wplayer.settings.volume = Math.Max(0, volume);
                             }
 
                             underTheSea.Volume = volume;
                             volumeSlider.Value = volume;
-
 #if DEBUG
                             DepthLabel.Content = $"Depth ({underTheSea.Volume})";
 #endif
