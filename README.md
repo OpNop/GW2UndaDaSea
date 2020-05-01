@@ -11,6 +11,8 @@
 ### About
 GW2 Unda Da Sea takes the standard Guild Wars 2 underwater combat experience to a whole new level, UNDA DA SEA!! Come dance with your friends as Sebastian enlightens you to the finer points of living Under The Sea.
 
+[![Unda Da Sea](https://img.youtube.com/vi/fkc5HD2ZE00/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+
 ---
 ### Notes:
 A few things to know before downloading:
@@ -24,8 +26,8 @@ Got a suggestion/improvement? Feel free to submit a pull request!
 ---
 ### Credits:
  - You can all thank Anet DEV Jonagar
- ![Insperation](https://user-images.githubusercontent.com/14283547/80658177-4b0b7600-8a3a-11ea-92dd-4f5346a9c435.png)
  - And me for making his dream come true
+![Insperation](https://user-images.githubusercontent.com/14283547/80658177-4b0b7600-8a3a-11ea-92dd-4f5346a9c435.png)
 
 ---
 ### Reviews:
