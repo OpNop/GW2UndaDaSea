@@ -10,6 +10,7 @@
     Height="202"
     Closing="Window_Closing"
     Foreground="Black"
+    Icon="/Assets/crab.ico"
     Loaded="Window_Loaded"
     mc:Ignorable="d">
     <Window.Background>
@@ -17,12 +18,6 @@
     </Window.Background>
 
     <Grid>
-        <MediaElement
-            Name="underTheSea"
-            LoadedBehavior="Manual"
-            MediaEnded="underTheSea_MediaEnded"
-            Source="uts_loop2.mp3"
-            Volume="0" />
         <StackPanel>
             <Label
                 Name="DepthLabel"

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="GW2Sharp" Version="0.9.6" />
+    <PackageReference Include="NAudio" Version="1.10.0" />
   </ItemGroup>
 
   <ItemGroup>
