@@ -17,7 +17,7 @@ GW2 Unda Da Sea takes the standard Guild Wars 2 underwater combat experience to 
 ### Notes:
 A few things to know before downloading:
  - Best to start after the game is loaded, not required, but old mumble data could send you under the sea before you load in.
- - The music loop has a gap, I know, your immersion is ruined.
+ - ~~The music loop has a gap, I know, your immersion is ruined.~~
  - Max volume attempts to limit how loud Sebastian sings, but that's easier said then done.
  - You wont get banned for using this, it just uses the public Mumble API link to do what it need to do.
 
