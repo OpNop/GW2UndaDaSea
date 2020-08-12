@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using Gw2Sharp;
@@ -19,28 +21,37 @@ namespace UndaDaSea
         private bool stopRequested;
 
         //Audio Player stuff
-        private StreamMediaFoundationReader _audioFile;
+        private readonly List<WavePlayer> _songs = new List<WavePlayer>();
+        private MixingWaveProvider32 _mixer;
         private WaveOutEvent _outputDevice;
-        private LoopStream _loop;
 
         public MainWindow()
         {
+            //Load songs
+            _songs.Add(new WavePlayer(new MemoryStream(Properties.Resources.uts_loop4)));
+            _songs.Add(new WavePlayer(new MemoryStream(Properties.Resources.pus_loop)));
+
+            //Set volumes
+            _songs.ForEach(s => s.Channel.Volume = 0);
+
+            //Sir Mix-a-lot
+            _mixer = new MixingWaveProvider32(_songs.Select(c => c.Channel));
+
+            //Setup output
+            _outputDevice = new WaveOutEvent();
+            _outputDevice.Init(_mixer);
+            _outputDevice.Volume = 1;
+            _outputDevice.Play();
+
             InitializeComponent();
             Topmost = true;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Do da mumble
             mumbleLoopThread = new Thread(MumbleLoop);
             mumbleLoopThread.Start();
-
-            //Load and play
-            _audioFile = new StreamMediaFoundationReader(new MemoryStream(Properties.Resources.uts_loop4));
-            _loop = new LoopStream(_audioFile);
-            _outputDevice = new WaveOutEvent();
-            _outputDevice.Init(_loop);
-            _outputDevice.Volume = 0;
-            _outputDevice.Play();
         }
 
         private void MumbleLoop()
@@ -60,29 +71,39 @@ namespace UndaDaSea
                 {
                     try
                     {
-                        this.Dispatcher.Invoke(new Action<IGw2MumbleClient>(m =>
+                        Dispatcher.Invoke(new Action<IGw2MumbleClient>(m =>
                         {
                             //Adjust volume acording to elevation
-                            float volume = 0;
                             float Yloc = Convert.ToSingle(m.AvatarPosition.Y);
-                            if (Yloc <= 0)
+
+                            //Above sea level
+                            if(Yloc > 0)
                             {
-                                volume = map(Yloc, -30, 0, Convert.ToSingle(MaxVolume.Value), 0.01f);
+                                _songs[0].Channel.Volume = Map(Yloc, 0, 3, 0.01f, 0f);
+                                _songs[1].Channel.Volume = 0;
                             }
-                            else
+                            //Unda Da Sea!!!!
+                            else if(Yloc <= 0 && Yloc > -140)
                             {
-                                volume = map(Yloc, 0, 3, 0.01f, 0f);
+                                _songs[0].Channel.Volume = Map(Yloc, -30, 0, 1, 0.01f);
+                                _songs[1].Channel.Volume = 0;
+                            }
+                            //Getting deep
+                            else if(Yloc <= -130 && Yloc > -150)
+                            {
+                                _songs[0].Channel.Volume = Map(Yloc, -130, -150, 0.99f, 0f);
+                                _songs[1].Channel.Volume = Map(Yloc, -150, -130, 0.1f, 0f);
+                            }
+                            //TOO DEEP
+                            else if (Yloc <= -150)
+                            {
+                                _songs[1].Channel.Volume = Map(Yloc, -170, -150, 1f, 0.1f);
                             }
 
-                            //Lets not get crazy here, keep it between 0 and 1
-                            volume = Clamp(volume, 0, 1);
+                            DepthLabel.Content = $"Depth: {(Yloc+1f):n2} Meters";
+                            DepthSlider.Value = Clamp((Yloc * -1), 0, 1000);
 
-                            _outputDevice.Volume = volume;
-                            volumeSlider.Value = volume;
-#if DEBUG
-                            DepthLabel.Content = $"Depth ({_outputDevice.Volume})";
-#endif
-                        }), this.client.Mumble);
+                        }), client.Mumble);
                     }
                     catch (ObjectDisposedException)
                     {
@@ -97,17 +118,17 @@ namespace UndaDaSea
             _outputDevice.Stop();
             _outputDevice.Dispose();
             _outputDevice = null;
-            _audioFile.Dispose();
-            _audioFile = null;
-            _loop.Dispose();
-            _loop = null;
+            _songs.Clear();
 
         }
 
-        private static float map(float value, float fromLow, float fromHigh, float toLow, float toHigh)
+        private static float Map(float value, float fromLow, float fromHigh, float toLow, float toHigh)
         {
-            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+            var result = (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+            //Lets not get crazy here, keep it between 0 and 1
+            return Clamp(result, 0, 1);
         }
+
         public static float Clamp(float value, float min, float max)
         {
             return (value < min) ? min : (value > max) ? max : value;
@@ -116,6 +137,11 @@ namespace UndaDaSea
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             stopRequested = true;
+        }
+
+        private void MasterVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _outputDevice.Volume = (float)MasterVolume.Value / 100f;
         }
     }
 }

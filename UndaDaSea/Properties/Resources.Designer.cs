@@ -63,6 +63,16 @@ namespace UndaDaSea.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] pus_loop {
+            get {
+                object obj = ResourceManager.GetObject("pus_loop", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] uts_loop4 {
             get {
                 object obj = ResourceManager.GetObject("uts_loop4", resourceCulture);

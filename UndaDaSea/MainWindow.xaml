@@ -26,31 +26,30 @@
                 FontWeight="Bold"
                 Foreground="#FF88B9FF" />
             <Slider
-                Name="volumeSlider"
+                Name="DepthSlider"
                 Margin="10,10,10,0"
                 VerticalAlignment="Top"
-                LargeChange="0.1"
-                Maximum="1"
-                SmallChange="0.05"
-                TickFrequency="0.1"
+                LargeChange="50"
+                Maximum="500"
+                SmallChange="25"
+                TickFrequency="25"
                 TickPlacement="BottomRight" />
             <Label
-                Content="Max Volume"
+                Content="Master Volume"
                 FontSize="20"
                 FontWeight="Bold"
                 Foreground="#FF88B9FF" />
             <Slider
-                Name="MaxVolume"
+                Name="MasterVolume"
                 Margin="10,20,10,0"
                 VerticalAlignment="Top"
-                LargeChange="0.1"
-                Maximum="1"
-                Minimum="0.1"
-                SmallChange="0.05"
-                TickFrequency="0.05"
+                LargeChange="10"
+                Maximum="100"
+                SmallChange="5"
+                TickFrequency="5"
                 TickPlacement="BottomRight"
+                ValueChanged="MasterVolume_ValueChanged"
                 Value="100" />
-
         </StackPanel>
     </Grid>
 </Window>
